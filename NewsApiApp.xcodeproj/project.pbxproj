@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,8 @@
 		32CF8A2A2856E72A0033D44D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32CF8A282856E72A0033D44D /* LaunchScreen.storyboard */; };
 		32CF8A322856EB020033D44D /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CF8A312856EB020033D44D /* SpinnerViewController.swift */; };
 		32CF8A362856EE070033D44D /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CF8A352856EE070033D44D /* ListItem.swift */; };
+		32DA9CB22856FE1B00F97126 /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DA9CB12856FE1B00F97126 /* NewsItem.swift */; };
+		32DA9CB52857020600F97126 /* NewsListRestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DA9CB42857020600F97126 /* NewsListRestObject.swift */; };
 		CC636BEA5DCEBD2BCB61F0F2 /* Pods_NewsApiApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE7B19BF84A4B2092FDA25F /* Pods_NewsApiApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,8 @@
 		32CF8A2B2856E72A0033D44D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32CF8A312856EB020033D44D /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		32CF8A352856EE070033D44D /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
+		32DA9CB12856FE1B00F97126 /* NewsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
+		32DA9CB42857020600F97126 /* NewsListRestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListRestObject.swift; sourceTree = "<group>"; };
 		57844F46A24CB1272F71916F /* Pods-NewsApiApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsApiApp.debug.xcconfig"; path = "Target Support Files/Pods-NewsApiApp/Pods-NewsApiApp.debug.xcconfig"; sourceTree = "<group>"; };
 		943A7EE196AB216FCCCE80AA /* Pods-NewsApiApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsApiApp.release.xcconfig"; path = "Target Support Files/Pods-NewsApiApp/Pods-NewsApiApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +71,7 @@
 		32CF8A1C2856E7280033D44D /* NewsApiApp */ = {
 			isa = PBXGroup;
 			children = (
+				32DA9CB32856FFBC00F97126 /* model */,
 				32CF8A1D2856E7280033D44D /* AppDelegate.swift */,
 				32CF8A1F2856E7280033D44D /* SceneDelegate.swift */,
 				32CF8A212856E7280033D44D /* ViewController.swift */,
@@ -78,6 +83,15 @@
 				32CF8A352856EE070033D44D /* ListItem.swift */,
 			);
 			path = NewsApiApp;
+			sourceTree = "<group>";
+		};
+		32DA9CB32856FFBC00F97126 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				32DA9CB12856FE1B00F97126 /* NewsItem.swift */,
+				32DA9CB42857020600F97126 /* NewsListRestObject.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		7497F8CE19843F23073CD5B5 /* Frameworks */ = {
@@ -94,7 +108,6 @@
 				57844F46A24CB1272F71916F /* Pods-NewsApiApp.debug.xcconfig */,
 				943A7EE196AB216FCCCE80AA /* Pods-NewsApiApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -213,10 +226,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				32CF8A362856EE070033D44D /* ListItem.swift in Sources */,
+				32DA9CB22856FE1B00F97126 /* NewsItem.swift in Sources */,
 				32CF8A322856EB020033D44D /* SpinnerViewController.swift in Sources */,
 				32CF8A222856E7280033D44D /* ViewController.swift in Sources */,
 				32CF8A1E2856E7280033D44D /* AppDelegate.swift in Sources */,
 				32CF8A202856E7280033D44D /* SceneDelegate.swift in Sources */,
+				32DA9CB52857020600F97126 /* NewsListRestObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

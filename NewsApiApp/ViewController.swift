@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import ObjectMapper
 
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -17,33 +18,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     let childView = SpinnerViewController()
     
-    let storeQueue = DispatchQueue.global(qos: .userInteractive)
-    let parsingQueue = DispatchQueue.init(label: "parsing", attributes: .concurrent)
+    var articles: Array<NewsItem> = []
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        80
+        articles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as? ListItem else { return  UITableViewCell() }
+        
+        let data = self.articles[indexPath.row]
+            
+        /*AF.request(data.iconUrl as! URLConvertible, method: .get).responseData { responseData in
+                if let responseData = responseData.data {
+                    cell.icon.image = UIImage(data: responseData)
+                }
+              }*/
+            
+        cell.message.text = data.message
+     
+          // Stop spinner work
+          self.stopIndicator()
          
-            clearRow(cell)
-         
-            // Create group notify - when group is completed then cell get rows
-            parsingGroup.notify(queue: .main) {
-                AF.request("https://www.meme-arsenal.com/memes/9d0531ebfd616e70c3b9ee778a935cb1.jpg", method: .get).responseData { responseData in
-                    if let responseData = responseData.data {
-                        cell.icon.image = UIImage(data: responseData)
-                    }
-                  }
-                
-              cell.message.text = "text"
-         
-              // Stop spinner work
-              self.stopIndicator()
-            }
-         
-            return cell
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -54,16 +51,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //table.delegate = self
-        //table.dataSource = self
+        table.delegate = self
+        table.dataSource = self
         
         //checkStore()
         moveIndicator()
         
-        AF.request("https://newsapi.org/v2/everything?q=education&apiKey=e75a9f9799954cc5bccc39df14de4189", method: .get).responseJSON { response in
-              let result =  try! response.result.get()
-              print(result)
-            }
+        AF.request("https://newsapi.org/v2/everything?q=education&apiKey=e75a9f9799954cc5bccc39df14de4189", method: .get).responseJSON { (responce) in
+                    switch responce.result {
+                    case .success(let value):
+                        guard let castingValue = value as? [String: Any] else { return }
+                        guard let userData = Mapper<NewsListRestObjects>().map(JSON: castingValue) else { return }
+                        self.articles = (userData.articles)!
+                        print(self.articles.count)
+                        self.table.reloadData()
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                }
     }
     
     func stopIndicator() {
@@ -78,23 +83,5 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         view.addSubview(childView.view)
         childView.didMove(toParent: self)
       }
-    
-    private func clearRow(_ cell: ListItem) {
-        //cell.icon = nil
-        //cell.message.text = ""
-      }
-
-    
-    
-    func checkStore() {
-        storeQueue.async {
-            if let path = Bundle.main.path(forResource: "UsersData", ofType:"plist"){
-                let dict = NSDictionary(contentsOfFile: path) as! [String: Any]
-                //self.appendDateFromPlistConcurrent(dict)
-            }
-        }
-        //print("1...\(self.icons.count)")
-    }
-
 }
 
