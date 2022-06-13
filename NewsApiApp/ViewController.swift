@@ -29,11 +29,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let data = self.articles[indexPath.row]
             
-        /*AF.request(data.iconUrl as! URLConvertible, method: .get).responseData { responseData in
+        AF.request(data.iconUrl as! URLConvertible, method: .get).responseData { responseData in
                 if let responseData = responseData.data {
                     cell.icon.image = UIImage(data: responseData)
                 }
-              }*/
+              }
             
         cell.message.text = data.message
      
