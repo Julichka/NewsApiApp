@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 import ObjectMapper
+import Kingfisher
 
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -28,17 +29,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as? ListItem else { return  UITableViewCell() }
         
         let data = self.articles[indexPath.row]
-            
-        AF.request(data.iconUrl as! URLConvertible, method: .get).responseData { responseData in
-                if let responseData = responseData.data {
-                    cell.icon.image = UIImage(data: responseData)
-                }
-              }
-            
+        
+        guard let url = URL.init(string: data.iconUrl!) else {
+                return cell
+            }
+        
+        cell.icon.kf.setImage(with: url)
         cell.message.text = data.message
      
-          // Stop spinner work
-          self.stopIndicator()
+        self.stopIndicator()
          
         return cell
     }
@@ -54,28 +53,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         table.delegate = self
         table.dataSource = self
         
-        //checkStore()
         moveIndicator()
         
         AF.request("https://newsapi.org/v2/everything?q=education&apiKey=e75a9f9799954cc5bccc39df14de4189", method: .get).responseJSON { (responce) in
-                    switch responce.result {
-                    case .success(let value):
-                        guard let castingValue = value as? [String: Any] else { return }
-                        guard let userData = Mapper<NewsListRestObjects>().map(JSON: castingValue) else { return }
-                        self.articles = (userData.articles)!
-                        print(self.articles.count)
-                        self.table.reloadData()
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    }
-                }
+            switch responce.result {
+            case .success(let value):
+                guard let castingValue = value as? [String: Any] else { return }
+                guard let userData = Mapper<NewsListRestObjects>().map(JSON: castingValue) else { return }
+                self.articles = (userData.articles)!
+                print(self.articles.count)
+                self.table.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func stopIndicator() {
-            self.childView.willMove(toParent: nil)
-            self.childView.view.removeFromSuperview()
-            self.childView.removeFromParent()
-        }
+        self.childView.willMove(toParent: nil)
+        self.childView.view.removeFromSuperview()
+        self.childView.removeFromParent()
+    }
         
     func moveIndicator() {
         addChild(childView)
