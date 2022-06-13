@@ -44,7 +44,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             return 80
         }
-
+    
+    
     @IBOutlet weak var table: UITableView!
     
     override func viewDidLoad() {
@@ -54,6 +55,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         checkStore()
         moveIndicator()
+        
+        
     }
     
     func stopIndicator() {

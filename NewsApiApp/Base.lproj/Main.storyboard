@@ -53,7 +53,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
-                        <outlet property="table" destination="NzF-xK-L7b" id="Q6v-g2-sJa"/>
+                        <outlet property="table" destination="NzF-xK-L7b" id="6Dy-X7-dCe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
