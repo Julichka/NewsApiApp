@@ -7,7 +7,7 @@ target 'NewsApiApp' do
 
   # Pods for NewsApiApp
 
-  pod ‘Alamofire’, ‘~> 5.2’
+  pod 'Alamofire', '~> 5.2'
   pod 'ObjectMapper', '~> 3.5'
   pod 'Kingfisher', '~> 7.0'
 
