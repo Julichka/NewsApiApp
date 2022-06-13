@@ -31,8 +31,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
          
             // Create group notify - when group is completed then cell get rows
             parsingGroup.notify(queue: .main) {
-              //cell.icon.image = UIImage(named: self.icons[indexPath.row])
-              //cell.message.text = self.messages[indexPath.row]
+                AF.request("https://www.meme-arsenal.com/memes/9d0531ebfd616e70c3b9ee778a935cb1.jpg", method: .get).responseData { responseData in
+                    if let responseData = responseData.data {
+                        cell.icon.image = UIImage(data: responseData)
+                    }
+                  }
+                
+              cell.message.text = "text"
          
               // Stop spinner work
               self.stopIndicator()
@@ -45,18 +50,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return 80
         }
     
-    
     @IBOutlet weak var table: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        table.delegate = self
-        table.dataSource = self
+        //table.delegate = self
+        //table.dataSource = self
         
-        checkStore()
+        //checkStore()
         moveIndicator()
         
-        
+        AF.request("https://newsapi.org/v2/everything?q=education&apiKey=e75a9f9799954cc5bccc39df14de4189", method: .get).responseJSON { response in
+              let result =  try! response.result.get()
+              print(result)
+            }
     }
     
     func stopIndicator() {
@@ -73,8 +80,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
       }
     
     private func clearRow(_ cell: ListItem) {
-        cell.icon = nil
-        cell.message.text = ""
+        //cell.icon = nil
+        //cell.message.text = ""
       }
 
     

@@ -11,4 +11,5 @@ import UIKit
 class ListItem: UITableViewCell {
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var message: UILabel!
+    
 }

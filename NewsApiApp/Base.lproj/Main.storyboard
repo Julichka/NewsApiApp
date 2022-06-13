@@ -42,7 +42,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="icon" destination="pry-uQ-Rns" id="CmV-38-RGd"/>
                                             <outlet property="image" destination="pry-uQ-Rns" id="ND2-Zr-04Q"/>
+                                            <outlet property="message" destination="pkW-Ro-uYS" id="gg0-cc-l05"/>
                                             <outlet property="text" destination="pkW-Ro-uYS" id="w88-Rh-SqA"/>
                                         </connections>
                                     </tableViewCell>
